@@ -1,6 +1,6 @@
-# Choosie Backend
+# Django Boilerplate 
 
-A Django-based backend API for managing users, restaurants, and OTP authentication.
+A Django-based backend API for managing users and OTP authentication.
 
 ---
 
