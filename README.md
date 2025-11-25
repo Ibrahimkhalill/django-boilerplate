@@ -8,12 +8,10 @@ A Django-based backend API for managing users, restaurants, and OTP authenticati
 
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
-- [Database](#database-setup)
+- [Database Setup](#database-setup)
 - [Running the Project](#running-the-project)
 - [API Endpoints](#api-endpoints)
-- [Admin Panel](#admin-panel)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ---
 
@@ -71,7 +69,7 @@ Create a superuser for admin access:
 ```bash
 python manage.py createsuperuser
 ```
-Running the Project
+## Running the Project
 ```bash
 python manage.py runserver
 ```
@@ -85,8 +83,8 @@ python manage.py runserver
 | `POST`       | `/api/auth/login/`                      | User login (returns token/session)       | No                |
 | `POST`       | `/api/auth/password-reset-request/`     | Send OTP to registered email             | No                |
 | `POST`       | `/api/auth/password-reset-verify/`      | Verify OTP & reset password              | No                |
-| `POST`       | `/api/auth/'password/reset//`           | Reset password                           | No                |
-| `GET`        | `/api/auth/password/change//`           | Change the user passowrd                 | No                |
+| `POST`       | `/api/auth/'password/reset/`           | Reset password                           | No                |
+| `GET`        | `/api/auth/password/change/`           | Change the user passowrd                 | No                |
 
 ### API Documentation
 Interactive API docs powered by Swagger/OpenAPI:
