@@ -8,7 +8,7 @@ A Django-based backend API for managing users, restaurants, and OTP authenticati
 
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
-- [Database](#database)
+- [Database](#database-setup)
 - [Running the Project](#running-the-project)
 - [API Endpoints](#api-endpoints)
 - [Admin Panel](#admin-panel)
@@ -75,4 +75,24 @@ Running the Project
 ```bash
 python manage.py runserver
 ```
+
+
+## API Endpoints
+
+| Method       | Endpoint                                | Description                              | Auth Required     |
+|--------------|-----------------------------------------|------------------------------------------|-------------------|
+| `POST`       | `/api/auth/register/`                   | Register a new user                      | No                |
+| `POST`       | `/api/auth/login/`                      | User login (returns token/session)       | No                |
+| `POST`       | `/api/auth/password-reset-request/`     | Send OTP to registered email             | No                |
+| `POST`       | `/api/auth/password-reset-verify/`      | Verify OTP & reset password              | No                |
+| `POST`       | `/api/auth/'password/reset//`           | Reset password                           | No                |
+| `GET`        | `/api/auth/password/change//`           | Change the user passowrd                 | No                |
+
+### API Documentation
+Interactive API docs powered by Swagger/OpenAPI:
+
+- **Swagger UI**: `http://127.0.0.1:8000/api/docs/`
+- **ReDoc**: `http://127.0.0.1:8000/api/redoc/` *(if added)*
+
+> Tip: Use `drf-yasg` or `drf-spectacular` to auto-generate beautiful docs
 
