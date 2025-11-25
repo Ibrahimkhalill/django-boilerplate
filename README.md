@@ -70,6 +70,12 @@ ALLOWED_HOSTS=localhost,127.0.0.1
 DATABASE_ENGINE=django.db.backends.sqlite3
 DATABASE_NAME=db.sqlite3
 
+# Optional settings for other DBs
+DATABASE_USER=
+DATABASE_PASSWORD=
+DATABASE_HOST=
+DATABASE_PORT=
+
 # Email configuration
 EMAIL_HOST=smtp.example.com
 EMAIL_PORT=587
