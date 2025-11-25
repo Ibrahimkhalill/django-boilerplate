@@ -101,14 +101,16 @@ python manage.py runserver
 
 ## API Endpoints
 
-| Method | Endpoint                            | Description                        | Auth Required |
-| ------ | ----------------------------------- | ---------------------------------- | ------------- |
-| `POST` | `/api/auth/register/`               | Register a new user                | No            |
-| `POST` | `/api/auth/login/`                  | User login (returns token/session) | No            |
-| `POST` | `/api/auth/password-reset-request/` | Send OTP to registered email       | No            |
-| `POST` | `/api/auth/password-reset-verify/`  | Verify OTP & reset password        | No            |
-| `POST` | `/api/auth/'password/reset/`        | Reset password                     | No            |
-| `GET`  | `/api/auth/password/change/`        | Change the user passowrd           | No            |
+| Method | Endpoint                            | Description                        |
+| ------ | ----------------------------------- | ---------------------------------- |
+| `POST` | `/api/auth/register/`               | Register a new user                |
+| `POST` | `/api/auth/login/`                  | User login (returns token/session) |
+| `POST` | `/api/auth//otp/create_otp/`        | New otp create                     |
+| `POST` | `/api/auth//otp/verify_otp/`        | Verify otp for signup              |
+| `POST` | `/api/auth/password-reset-request/` | Send OTP to registered email       |
+| `POST` | `/api/auth/password-reset-verify/`  | Verify OTP & reset password        |
+| `POST` | `/api/auth/password/reset/`         | Reset password                     |
+| `GET`  | `/api/auth/password/change/`        | Change the user passowrd           |
 
 ### API Documentation
 
