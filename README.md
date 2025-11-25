@@ -1,6 +1,24 @@
-# Django Boilerplate 
+# Django Boilerplate ⚡
 
-A Django-based backend API for managing users and OTP authentication.
+**Production-ready, clean & minimal Django + DRF starter template**  
+Perfect for quickly bootstrapping any backend project with secure user authentication, OTP system, email setup, and API documentation.
+
+Ideal for MVPs, SaaS backends, mobile app APIs, freelance projects, or learning.
+
+---
+
+## Features
+
+- User Registration & Login
+- Secure OTP-based Password Reset (via Email)
+- Email configuration ready (SMTP)
+- Custom User Model support ready
+- REST API with Django REST Framework
+- Swagger / ReDoc API documentation support
+- Admin panel with superuser
+- SQLite by default (easy switch to PostgreSQL)
+- Clean project structure
+- Ready for deployment
 
 ---
 
@@ -11,20 +29,21 @@ A Django-based backend API for managing users and OTP authentication.
 - [Database Setup](#database-setup)
 - [Running the Project](#running-the-project)
 - [API Endpoints](#api-endpoints)
-
+- [API Documentation](#api-documentation)
+- [Production Tips](#production-tips)
+- [License](#license)
 
 ---
 
 ## Installation
 
-1. Clone the repository:
-
 ```bash
-git clone https://github.com/username/django-boilerplate.git
+git clone https://github.com/yourusername/django-boilerplate.git
 cd django-boilerplate
 ```
+
 2. Create a virtual environment:
-   
+
 ```bash
 python -m venv venv
 # Activate environment:
@@ -39,7 +58,9 @@ venv\Scripts\activate
 ```bash
 pip install -r requirements.txt
 ```
+
 ## Environment Variables
+
 ```bash
 DEBUG=True
 SECRET_KEY=your_secret_key_here
@@ -56,41 +77,44 @@ EMAIL_HOST_USER=your_email
 EMAIL_HOST_PASSWORD=your_email_password
 EMAIL_USE_TLS=True
 ```
+
 You can change the database by updating DATABASE_ENGINE, DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD, etc.
 
-
 ## Database Setup
+
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
 Create a superuser for admin access:
+
 ```bash
 python manage.py createsuperuser
 ```
+
 ## Running the Project
+
 ```bash
 python manage.py runserver
 ```
 
-
 ## API Endpoints
 
-| Method       | Endpoint                                | Description                              | Auth Required     |
-|--------------|-----------------------------------------|------------------------------------------|-------------------|
-| `POST`       | `/api/auth/register/`                   | Register a new user                      | No                |
-| `POST`       | `/api/auth/login/`                      | User login (returns token/session)       | No                |
-| `POST`       | `/api/auth/password-reset-request/`     | Send OTP to registered email             | No                |
-| `POST`       | `/api/auth/password-reset-verify/`      | Verify OTP & reset password              | No                |
-| `POST`       | `/api/auth/'password/reset/`           | Reset password                           | No                |
-| `GET`        | `/api/auth/password/change/`           | Change the user passowrd                 | No                |
+| Method | Endpoint                            | Description                        | Auth Required |
+| ------ | ----------------------------------- | ---------------------------------- | ------------- |
+| `POST` | `/api/auth/register/`               | Register a new user                | No            |
+| `POST` | `/api/auth/login/`                  | User login (returns token/session) | No            |
+| `POST` | `/api/auth/password-reset-request/` | Send OTP to registered email       | No            |
+| `POST` | `/api/auth/password-reset-verify/`  | Verify OTP & reset password        | No            |
+| `POST` | `/api/auth/'password/reset/`        | Reset password                     | No            |
+| `GET`  | `/api/auth/password/change/`        | Change the user passowrd           | No            |
 
 ### API Documentation
+
 Interactive API docs powered by Swagger/OpenAPI:
 
 - **Swagger UI**: `http://127.0.0.1:8000/api/docs/`
-- **ReDoc**: `http://127.0.0.1:8000/api/redoc/` *(if added)*
+- **ReDoc**: `http://127.0.0.1:8000/api/redoc/` _(if added)_
 
 > Tip: Use `drf-yasg` or `drf-spectacular` to auto-generate beautiful docs
-
