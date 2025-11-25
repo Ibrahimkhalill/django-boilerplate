@@ -20,8 +20,8 @@ A Django-based backend API for managing users and OTP authentication.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/username/choosie_backend.git
-cd choosie_backend
+git clone https://github.com/username/django-boilerplate.git
+cd django-boilerplate
 ```
 2. Create a virtual environment:
    
