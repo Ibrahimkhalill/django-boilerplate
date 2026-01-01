@@ -1,12 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser, Group, Permission
-
+from django.contrib.auth.models import  Group, Permission
 from django.utils import timezone
 import uuid
 from datetime import timedelta
 from django.conf import settings    
+
+class PreRegistration(models.Model):
+    email_address = models.EmailField()
+    password = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    role = models.CharField(max_length=20, default='user')
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    is_verified = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(auto_now_add=True)   
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
 
 class CustomUserManager(BaseUserManager):
@@ -54,7 +64,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLES = (
         ('admin', 'Admin'),
         ('user', 'User'),
-       
+        ('restaurant', 'Restaurant'),
     )
 
     email_address = models.EmailField(_('email address'), unique=True)
@@ -104,6 +114,8 @@ class UserProfile(models.Model):
     name = models.CharField(max_length=500, blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True, unique=True)
     profile_picture = models.ImageField(upload_to="profile", blank=True, null=True)
+    file = models.FileField(upload_to="file", blank=True, null=True)
+    
     
     def __str__(self):
         return getattr(self.user, 'email_address', 'No User')

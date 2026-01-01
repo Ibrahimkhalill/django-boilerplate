@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from .models import *
-
+from .helper import create_and_send_otp
 
 User = get_user_model()
 
@@ -12,7 +12,7 @@ User = get_user_model()
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['id', 'user', 'name', 'phone_number', 'profile_picture']
+        fields = ['id', 'user', 'name', 'phone_number', 'profile_picture','file']
         read_only_fields = ['id', 'user']
 
     def validate(self, data):
@@ -22,6 +22,38 @@ class UserProfileSerializer(serializers.ModelSerializer):
         if errors:
             raise serializers.ValidationError(errors)
         return data
+
+
+# ---------------------------
+class PreRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PreRegistration
+        fields = ['id', 'email_address', 'password', 'name', 'phone_number', 'role', 'is_verified', 'date_joined']
+        read_only_fields = ['is_verified', 'date_joined']
+
+    def validate_email_address(self, value):
+        if User.objects.filter(email_address=value, is_verified=True).exists():
+            raise serializers.ValidationError("This email already exists")
+        return value
+
+    def create(self, validated_data):
+        email = validated_data['email_address']
+
+        # Save / update PreRegistration
+        pre_reg, _ = PreRegistration.objects.update_or_create(
+            email_address=email,
+            defaults=validated_data
+        )
+
+        try:
+            create_and_send_otp(email=email, purpose='signup')
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            raise serializers.ValidationError({"otp": f"Failed to send OTP: {str(e)}"})
+
+        return pre_reg
+       
 
 
 # ---------------------------
@@ -69,9 +101,7 @@ class CustomUserCreateSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        name = validated_data.pop('name')
-        phone_number = validated_data.pop('phone_number', None)
-
+   
         # Check for unverified user
         user = User.objects.filter(email_address=validated_data['email_address'], is_verified=False).first()
 
@@ -83,7 +113,7 @@ class CustomUserCreateSerializer(serializers.ModelSerializer):
         else:
             # Create new user
             user = User.objects.create_user(
-                email=validated_data['email_address'],
+                email_address=validated_data['email_address'],
                 password=validated_data['password'],
                 role=validated_data.get('role', 'user')
             )
@@ -111,7 +141,9 @@ class LoginSerializer(serializers.Serializer):
         if errors:
             raise serializers.ValidationError(errors)
 
-        user = authenticate(email=email, password=password)
+        user = authenticate(email_address=email, password=password)
+        
+        print("Authenticated User:", user)
         if not user:
             raise serializers.ValidationError({'credentials': ['Invalid email or password']})
 
